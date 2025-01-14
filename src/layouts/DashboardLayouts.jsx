@@ -7,19 +7,21 @@ const DashboardLayout = () => {
       {/* Left Side: Sidebar Component */}
       <div className="w-64 bg-blue-900 text-white flex-shrink-0">
         {/* Logo */}
-        <div className="flex items-center gap-3">
-          <img
-            src="https://imgs.bangladeshimatrimony.com/cbsimages/hp_new/bangladeshi_logo.svg"
-            alt="Bangladeshi Matrimony Logo"
-            className="h-12 w-auto"
-          />
-          <div className="flex flex-col justify-center">
-            <h4 className="text-green-600 text-xl font-semibold">
-              Bangladeshi
-            </h4>
-            <h4 className="text-red-600 text-xl font-semibold">Matrimony</h4>
+        <NavLink to="/">
+          <div className="flex items-center py-6 px-4 gap-3">
+            <img
+              src="https://imgs.bangladeshimatrimony.com/cbsimages/hp_new/bangladeshi_logo.svg"
+              alt="Bangladeshi Matrimony Logo"
+              className="h-12 w-auto"
+            />
+            <div className="flex flex-col justify-center">
+              <h4 className="text-green-600 text-xl font-semibold">
+                Bangladeshi
+              </h4>
+              <h4 className="text-red-600 text-xl font-semibold">Matrimony</h4>
+            </div>
           </div>
-        </div>
+        </NavLink>
         <nav className="mt-6">
           <ul>
             <li className="py-2 px-4 hover:bg-blue-700">
