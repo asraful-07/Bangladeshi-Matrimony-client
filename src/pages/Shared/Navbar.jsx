@@ -49,7 +49,7 @@ const Navbar = () => {
           <img
             src="https://imgs.bangladeshimatrimony.com/cbsimages/hp_new/bangladeshi_logo.svg"
             alt="Bangladeshi Matrimony Logo"
-            className="h-12 w-auto" // Adjust image size as needed
+            className="h-12 w-auto"
           />
           <div className="flex flex-col justify-center">
             <h4 className="text-green-600 text-xl font-semibold">
