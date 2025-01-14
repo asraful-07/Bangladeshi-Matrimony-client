@@ -1,9 +1,14 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
+import { HiHome } from "react-icons/hi";
 import { NavLink, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
     <div className="relative min-h-screen md:flex bg-gray-100">
+      <Helmet>
+        <title>Matrimony | Dashboard</title>
+      </Helmet>
       {/* Left Side: Sidebar Component */}
       <div className="w-64 bg-blue-900 text-white flex-shrink-0">
         {/* Logo */}
@@ -26,22 +31,12 @@ const DashboardLayout = () => {
           <ul>
             <li className="py-2 px-4 hover:bg-blue-700">
               <NavLink
-                to="/"
+                to="/dashboard/biodata"
                 className={({ isActive }) =>
                   isActive ? "text-yellow-400" : "text-white"
                 }
               >
-                Home
-              </NavLink>
-            </li>
-            <li className="py-2 px-4 hover:bg-blue-700">
-              <NavLink
-                to="/dashboard/seller"
-                className={({ isActive }) =>
-                  isActive ? "text-yellow-400" : "text-white"
-                }
-              >
-                Become A Seller
+                Edit Biodata
               </NavLink>
             </li>
             <li className="py-2 px-4 hover:bg-blue-700">
@@ -106,12 +101,16 @@ const DashboardLayout = () => {
             </li>
             <li className="py-2 px-4 hover:bg-blue-700">
               <NavLink
-                to="/dashboard/statics"
+                to="/"
                 className={({ isActive }) =>
                   isActive ? "text-yellow-400" : "text-white"
                 }
               >
-                Statics
+                <span className="flex justify-center gap-2">
+                  {" "}
+                  <HiHome />
+                </span>{" "}
+                Home
               </NavLink>
             </li>
           </ul>

@@ -4,6 +4,8 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Regiser";
 import DashboardLayout from "../layouts/DashboardLayouts";
+import BiodataEdit from "../pages/Biodata/BiodataEdit";
+import Biodatas from "../pages/Biodatas/Biodatas";
 
 const routes = createBrowserRouter([
   {
@@ -13,6 +15,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "Bbodatas",
+        element: <Biodatas />,
       },
     ],
   },
@@ -27,6 +33,12 @@ const routes = createBrowserRouter([
   {
     path: "dashboard",
     element: <DashboardLayout />,
+    children: [
+      {
+        path: "biodata",
+        element: <BiodataEdit />,
+      },
+    ],
   },
 ]);
 

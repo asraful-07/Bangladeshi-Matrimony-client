@@ -34,9 +34,9 @@ const Navbar = () => {
   // Separate public and private links
   const publicLinks = [
     { path: "/", label: "Home" },
-    { path: "/ Bbodatas", label: "Biodatas" },
-    { path: "/ about-us", label: "About Us" },
-    { path: "/ contact-us", label: "Contact Us" },
+    { path: "/Bbodatas", label: "Biodatas" },
+    { path: "/about-us", label: "About US" },
+    { path: "/contact-us", label: "Contact US" },
   ];
 
   const privateLinks = [{ path: "/dashboard", label: "Dashboard" }];
