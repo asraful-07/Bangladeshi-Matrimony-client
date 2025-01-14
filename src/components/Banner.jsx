@@ -13,7 +13,7 @@ export default function Carousel() {
   return (
     <div className="w-full">
       <Swiper
-        spaceBetween={20} // Adjust spacing between slides
+        spaceBetween={20}
         centeredSlides={true}
         loop={true}
         autoplay={{
