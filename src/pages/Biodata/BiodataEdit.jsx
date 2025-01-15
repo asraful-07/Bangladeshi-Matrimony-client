@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -7,294 +7,176 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 const BiodataEdit = () => {
   const { user } = UseAuth();
   const axiosSecure = useAxiosSecure();
-  const [isLoading, setLoading] = useState(false);
 
-  // handle form submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm();
 
-    const form = e.target;
-    const name = form.name.value;
-    const category = form.category.value;
-    const image = form.image.value;
-    const dob = form.dob.value;
-    const height = form.height.value;
-    const weight = form.weight.value;
-    const age = form.age.value;
-    const occupation = form.occupation.value;
-    const race = form.race.value;
-    const fatherName = form.fatherName.value;
-    const motherName = form.motherName.value;
-    const permanentDivision = form.permanentDivision.value;
-    const presentDivision = form.presentDivision.value;
-    const partnerAge = form.partnerAge.value;
-    const partnerHeight = form.partnerHeight.value;
-    const partnerWeight = form.partnerWeight.value;
-    const mobileNumber = form.mobileNumber.value;
-    const email = form.email.value;
-
-    // Create biodata object
-    const biodata = {
-      name,
-      category,
-      image,
-      dob,
-      height,
-      weight,
-      age,
-      occupation,
-      race,
-      fatherName,
-      motherName,
-      permanentDivision,
-      presentDivision,
-      partnerAge,
-      partnerHeight,
-      partnerWeight,
-      mobileNumber,
-      email,
-      creator: user
-        ? {
-            email: user.email,
-            name: user.displayName || "Unknown",
-            photo: user.photoURL || "default-photo-url",
-          }
-        : {},
-    };
-
+  const onSubmit = async (data) => {
+    data.email = user?.email;
     try {
-      // Post request to save biodata
-      await axiosSecure.post("/biodata", biodata);
-      toast.success("Biodata Added Successfully!");
-      form.reset();
+      await axiosSecure.post("/biodata", data);
+      toast.success("Biodata added successfully!");
+      reset();
     } catch (err) {
       console.error(err);
       toast.error("Failed to save biodata. Please try again.");
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <div>
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-md p-6">
+      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-md p-6">
         <h1 className="text-3xl font-semibold mb-6">Edit Biodata</h1>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Biodata Type */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Biodata Type *
-            </label>
-            <select
-              name="category"
-              required
-              className="block w-full border rounded px-4 py-2"
-            >
-              <option value="">Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Name */}
+            <div>
+              <label className="block text-sm font-medium mb-2">Name *</label>
+              <input
+                {...register("name", { required: "Name is required" })}
+                type="text"
+                className="block w-full border rounded px-4 py-2"
+              />
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name?.message}</p>
+              )}
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-medium mb-2">Email *</label>
+              <input
+                type="text"
+                className="block w-full border rounded px-4 py-2"
+                defaultValue={user?.email}
+                readOnly
+              />
+            </div>
           </div>
 
-          {/* Name */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Name *</label>
-            <input
-              type="text"
-              name="name"
-              required
-              className="block w-full border rounded px-4 py-2"
-            />
-          </div>
-
-          {/* Profile Image */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Profile Image Link
-            </label>
-            <input
-              type="text"
-              name="image"
-              className="block w-full border rounded px-4 py-2"
-            />
-          </div>
-
-          {/* Date of Birth */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Date of Birth *
-            </label>
-            <input
-              type="date"
-              name="dob"
-              required
-              className="block w-full border rounded px-4 py-2"
-            />
-          </div>
-
-          {/* Height */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Height *</label>
-            <select
-              name="height"
-              required
-              className="block w-full border rounded px-4 py-2"
-            >
-              <option value="">Select Height</option>
-              <option value="Short">Short</option>
-              <option value="Average">Average</option>
-              <option value="Tall">Tall</option>
-            </select>
-          </div>
-
-          {/* Weight */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Weight *</label>
-            <select
-              name="weight"
-              required
-              className="block w-full border rounded px-4 py-2"
-            >
-              <option value="">Select Weight</option>
-              <option value="Thin">Thin</option>
-              <option value="Average">Average</option>
-              <option value="Heavy">Heavy</option>
-            </select>
-          </div>
-
-          {/* Age */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Age *</label>
-            <input
-              type="number"
-              name="age"
-              required
-              className="block w-full border rounded px-4 py-2"
-            />
-          </div>
-
-          {/* Occupation */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Occupation *
-            </label>
-            <select
-              name="occupation"
-              required
-              className="block w-full border rounded px-4 py-2"
-            >
-              <option value="">Select Occupation</option>
-              <option value="Student">Student</option>
-              <option value="Engineer">Engineer</option>
-              <option value="Doctor">Doctor</option>
-              <option value="Business">Business</option>
-            </select>
-          </div>
-
-          {/* Race */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Race *</label>
-            <select
-              name="race"
-              required
-              className="block w-full border rounded px-4 py-2"
-            >
-              <option value="">Select Race</option>
-              <option value="Fair">Fair</option>
-              <option value="Medium">Medium</option>
-              <option value="Dark">Dark</option>
-            </select>
-          </div>
-
-          {/* Father & Mother Name */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Mobile Number */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                Father's Name *
+                Mobile Number *
               </label>
               <input
                 type="text"
-                name="fatherName"
-                required
+                {...register("mobileNumber", {
+                  required: "Mobile Number is required",
+                })}
                 className="block w-full border rounded px-4 py-2"
               />
+              {errors.mobileNumber && (
+                <p className="text-red-500 text-sm">
+                  {errors.mobileNumber?.message}
+                </p>
+              )}
             </div>
+
+            {/* Biodata Type */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                Mother's Name *
+                Biodata Type *
+              </label>
+              <select
+                {...register("gender", {
+                  required: "Biodata Type is required",
+                })}
+                className="block w-full border rounded px-4 py-2"
+              >
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              {errors.gender && (
+                <p className="text-red-500 text-sm">{errors.gender?.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Profile Image */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Profile Image Link
               </label>
               <input
                 type="text"
-                name="motherName"
-                required
+                {...register("image")}
                 className="block w-full border rounded px-4 py-2"
               />
+              {errors.image && (
+                <p className="text-red-500 text-sm">{errors.image?.message}</p>
+              )}
+            </div>
+
+            {/* Race */}
+            <div>
+              <label className="block text-sm font-medium mb-2">Race *</label>
+              <select
+                {...register("race", { required: "Race is required" })}
+                className="block w-full border rounded px-4 py-2"
+              >
+                <option value="">Select Race</option>
+                <option value="Fair">Fair</option>
+                <option value="Medium">Medium</option>
+                <option value="Dark">Dark</option>
+              </select>
+              {errors.race && (
+                <p className="text-red-500 text-sm">{errors.race?.message}</p>
+              )}
             </div>
           </div>
 
-          {/* Division Names */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Date of Birth */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                Permanent Division *
-              </label>
-              <select
-                name="permanentDivision"
-                required
-                className="block w-full border rounded px-4 py-2"
-              >
-                <option value="">Select Division</option>
-                <option value="Dhaka">Dhaka</option>
-                <option value="Dhaka">Rajshahi</option>
-                <option value="Chattagram">Chattagram</option>
-                <option value="Rangpur">Rangpur</option>
-                <option value="Barisal">Barisal</option>
-                <option value="Khulna">Khulna</option>
-                <option value="Mymensingh">Mymensingh</option>
-                <option value="Sylhet">Sylhet</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                Present Division *
-              </label>
-              <select
-                name="presentDivision"
-                required
-                className="block w-full border rounded px-4 py-2"
-              >
-                <option value="">Select Division</option>
-                <option value="Dhaka">Dhaka</option>
-                <option value="Dhaka">Rajshahi</option>
-                <option value="Chattagram">Chattagram</option>
-                <option value="Rangpur">Rangpur</option>
-                <option value="Barisal">Barisal</option>
-                <option value="Khulna">Khulna</option>
-                <option value="Mymensingh">Mymensingh</option>
-                <option value="Sylhet">Sylhet</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Expected Partner Details */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                Expected Partner Age
+                Date of Birth *
               </label>
               <input
-                type="number"
-                name="partnerAge"
+                type="date"
+                {...register("dob", { required: "Date of Birth is required" })}
                 className="block w-full border rounded px-4 py-2"
               />
+              {errors.dob && (
+                <p className="text-red-500 text-sm">{errors.dob.message}</p>
+              )}
             </div>
+
+            {/* Religion */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                Expected Partner Height
+                Religion *
               </label>
               <select
-                name="partnerHeight"
+                {...register("religion", { required: "Religion is required" })}
+                className="block w-full border rounded px-4 py-2"
+              >
+                <option value="">Select</option>
+                <option value="Islam">Islam</option>
+                <option value="Hinduism">Hinduism</option>
+                <option value="Christianity">Christianity</option>
+              </select>
+              {errors.religion && (
+                <p className="text-red-500 text-sm">
+                  {errors.religion?.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Height */}
+            <div>
+              <label className="block text-sm font-medium mb-2">Height *</label>
+              <select
+                {...register("height", { required: "Height is required" })}
                 className="block w-full border rounded px-4 py-2"
               >
                 <option value="">Select Height</option>
@@ -302,13 +184,16 @@ const BiodataEdit = () => {
                 <option value="Average">Average</option>
                 <option value="Tall">Tall</option>
               </select>
+              {errors.height && (
+                <p className="text-red-500 text-sm">{errors.height?.message}</p>
+              )}
             </div>
+
+            {/* Weight */}
             <div>
-              <label className="block text-sm font-medium mb-2">
-                Expected Partner Weight
-              </label>
+              <label className="block text-sm font-medium mb-2">Weight *</label>
               <select
-                name="partnerWeight"
+                {...register("weight", { required: "Weight is required" })}
                 className="block w-full border rounded px-4 py-2"
               >
                 <option value="">Select Weight</option>
@@ -316,43 +201,215 @@ const BiodataEdit = () => {
                 <option value="Average">Average</option>
                 <option value="Heavy">Heavy</option>
               </select>
+              {errors.weight && (
+                <p className="text-red-500 text-sm">{errors.weight?.message}</p>
+              )}
             </div>
           </div>
 
-          {/* Contact Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Age */}
             <div>
-              <label className="block text-sm font-medium mb-2">
-                Mobile Number *
-              </label>
+              <label className="block text-sm font-medium mb-2">Age *</label>
               <input
+                {...register("age", { required: "Age is required" })}
                 type="text"
-                name="mobileNumber"
-                required
                 className="block w-full border rounded px-4 py-2"
               />
+              {errors.age && (
+                <p className="text-red-500 text-sm">{errors.age?.message}</p>
+              )}
             </div>
+
+            {/* Occupation */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                Contact Email (Readonly)
+                Occupation *
+              </label>
+              <select
+                {...register("occupation", {
+                  required: "Occupation is required",
+                })}
+                className="block w-full border rounded px-4 py-2"
+              >
+                <option value="">Select Occupation</option>
+                <option value="Student">Student</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Business">Business</option>
+                <option value="Others">Others</option>
+              </select>
+              {errors.occupation && (
+                <p className="text-red-500 text-sm">
+                  {errors.occupation?.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Father's Name */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Father's Name
               </label>
               <input
-                type="email"
-                name="email"
-                readOnly
-                value={user ? user.email : ""}
-                className="block w-full border rounded px-4 py-2 bg-gray-200"
+                {...register("fatherName")}
+                type="text"
+                className="block w-full border rounded px-4 py-2"
               />
+              {errors.fatherName && (
+                <p className="text-red-500 text-sm">
+                  {errors.fatherName?.message}
+                </p>
+              )}
             </div>
+
+            {/* Mother's Name */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Mother's Name
+              </label>
+              <input
+                {...register("motherName")}
+                type="text"
+                className="block w-full border rounded px-4 py-2"
+              />
+              {errors.motherName && (
+                <p className="text-red-500 text-sm">
+                  {errors.motherName?.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Permanent Division */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Permanent Division *
+              </label>
+              <select
+                {...register("permanentDivision", {
+                  required: "Permanent division is required",
+                })}
+                className="block w-full border rounded px-4 py-2"
+              >
+                <option value="">Select Division</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Chattagram">Chattagram</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Mymensingh">Mymensingh</option>
+                <option value="Sylhet">Sylhet</option>
+              </select>
+              {errors.permanentDivision && (
+                <p className="text-red-500 text-sm">
+                  {errors.permanentDivision?.message}
+                </p>
+              )}
+            </div>
+
+            {/* Present Division */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Present Division *
+              </label>
+              <select
+                {...register("presentDivision", {
+                  required: "Present division is required",
+                })}
+                className="block w-full border rounded px-4 py-2"
+              >
+                <option value="">Select Division</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Chattagram">Chattagram</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Mymensingh">Mymensingh</option>
+                <option value="Sylhet">Sylhet</option>
+              </select>
+              {errors.presentDivision && (
+                <p className="text-red-500 text-sm">
+                  {errors.presentDivision?.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+            {/* Expected Partner  Height */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Expected Partner Height
+              </label>
+              <select
+                {...register("expectedHeight")}
+                className="block w-full border rounded px-4 py-2"
+              >
+                <option value="">Select Height</option>
+                <option value="Short">Short</option>
+                <option value="Average">Average</option>
+                <option value="Tall">Tall</option>
+              </select>
+              {errors.expectedHeight && (
+                <p className="text-red-500 text-sm">
+                  {errors.expectedHeight?.message}
+                </p>
+              )}
+            </div>
+
+            {/* Expected Partner Weight */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Expected Partner Weight
+              </label>
+              <select
+                {...register("expectedWeight")}
+                className="block w-full border rounded px-4 py-2"
+              >
+                <option value="">Select Weight</option>
+                <option value="Thin">Thin</option>
+                <option value="Average">Average</option>
+                <option value="Heavy">Heavy</option>
+              </select>
+              {errors.expectedWeight && (
+                <p className="text-red-500 text-sm">
+                  {errors.expectedWeight?.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/*Expected Partner Age */}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Expected Partner Age
+            </label>
+            <input
+              {...register("expectedAge")}
+              type="text"
+              className="block w-full border rounded px-4 py-2"
+            />
+            {errors.expectedAge && (
+              <p className="text-red-500 text-sm">
+                {errors.expectedAge?.message}
+              </p>
+            )}
           </div>
 
           {/* Submit Button */}
           <button
+            disabled={isSubmitting}
             type="submit"
             className="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
           >
-            {/* {isLoading ? "Saving..." : "Save and Publish Now"} */}
-            Saving
+            {isSubmitting ? "Saving..." : "Save and Publish Now"}
           </button>
         </form>
       </div>

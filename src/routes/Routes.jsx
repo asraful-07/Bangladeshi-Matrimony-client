@@ -6,6 +6,11 @@ import Register from "../pages/Register/Regiser";
 import DashboardLayout from "../layouts/DashboardLayouts";
 import BiodataEdit from "../pages/Biodata/BiodataEdit";
 import Biodatas from "../pages/Biodatas/Biodatas";
+import BiodatasDetails from "../pages/BiodatasDetails/BiodatasDetails";
+import FavouritesBiodata from "../pages/Favourites/FavouritesBiodata";
+import ManageUsers from "../pages/Admin/ManageUsers";
+import PrivetRouter from "./PrivetRouter";
+import AdminRoute from "./AdminRoutes";
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +25,14 @@ const routes = createBrowserRouter([
         path: "Bbodatas",
         element: <Biodatas />,
       },
+      {
+        path: "/biodata/:id",
+        element: (
+          <PrivetRouter>
+            <BiodatasDetails />
+          </PrivetRouter>
+        ),
+      },
     ],
   },
   {
@@ -32,11 +45,28 @@ const routes = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivetRouter>
+        <DashboardLayout />
+      </PrivetRouter>
+    ),
     children: [
       {
         path: "biodata",
         element: <BiodataEdit />,
+      },
+      {
+        path: "favourites",
+        element: <FavouritesBiodata />,
+      },
+      // Admin works
+      {
+        path: "user",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
     ],
   },
