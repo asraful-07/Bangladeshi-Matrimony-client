@@ -8,10 +8,10 @@ const CustomerOrderDataRow = ({ orderData, refetch }) => {
     orderData;
 
   const axiosSecure = useAxiosSecure();
-  const [isOpen, setIsOpen] = useState(false); // Add state for modal visibility
+  const [isOpen, setIsOpen] = useState(false);
 
-  const closeModal = () => setIsOpen(false); // Function to close the modal
-  const openModal = () => setIsOpen(true); // Function to open the modal
+  const closeModal = () => setIsOpen(false);
+  const openModal = () => setIsOpen(true);
 
   // Handle order delete/cancellation
   const handleDelete = async () => {
@@ -20,12 +20,12 @@ const CustomerOrderDataRow = ({ orderData, refetch }) => {
       await axiosSecure.delete(`/orders/${_id}`);
       // Call refetch to refresh UI
       refetch();
-      toast.success("Order Cancelled.");
+      toast.success("Favourites Cancelled.");
     } catch (err) {
       console.error(err);
       toast.error(err.response?.data || "An error occurred.");
     } finally {
-      closeModal(); // Ensure modal closes
+      closeModal();
     }
   };
 
