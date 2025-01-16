@@ -26,7 +26,7 @@ const ViewBiodata = () => {
       return data;
     },
   });
-  console.log(biodatas);
+
   if (isLoading) return <h1>loading.........</h1>;
   return (
     <div>

@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import PremiumMenu from "../components/PremiumMenu";
 
 const ViewCard = ({ view }) => {
+  const [showPremiumMenu, setShowPremiumMenu] = useState(false);
+
   const {
     biodataId,
     name,
@@ -22,6 +25,10 @@ const ViewCard = ({ view }) => {
     expectedWeight,
     email,
   } = view;
+
+  const handelPremium = () => {
+    setShowPremiumMenu(true);
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen py-8 px-4">
@@ -116,10 +123,20 @@ const ViewCard = ({ view }) => {
 
           {/* Premium Button */}
           <div className="mt-6">
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">
+            <button
+              onClick={handelPremium}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
+            >
               Make Biodata Premium
             </button>
           </div>
+
+          {/* Conditionally Render PremiumMenu */}
+          {showPremiumMenu && (
+            <div className="mt-6">
+              <PremiumMenu />
+            </div>
+          )}
         </div>
       </div>
     </div>
