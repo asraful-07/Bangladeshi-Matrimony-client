@@ -37,6 +37,7 @@ const BiodatasDetails = () => {
   const {
     _id,
     biodataId,
+    email,
     name,
     category,
     image,
@@ -51,6 +52,9 @@ const BiodatasDetails = () => {
     permanentDivision,
     presentDivision,
     mobileNumber,
+    expectedAge,
+    expectedHeight,
+    expectedWeight,
   } = biodata;
 
   // Handle Donate Button Click

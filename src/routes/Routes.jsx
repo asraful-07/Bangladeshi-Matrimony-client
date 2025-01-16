@@ -11,6 +11,7 @@ import FavouritesBiodata from "../pages/Favourites/FavouritesBiodata";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import PrivetRouter from "./PrivetRouter";
 import AdminRoute from "./AdminRoutes";
+import ViewBiodata from "../layouts/ViewBiodata/ViewBiodata";
 
 const routes = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const routes = createBrowserRouter([
       {
         path: "favourites",
         element: <FavouritesBiodata />,
+      },
+      {
+        path: "view",
+        element: <ViewBiodata />,
       },
       // Admin works
       {
