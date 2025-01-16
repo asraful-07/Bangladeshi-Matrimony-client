@@ -123,12 +123,13 @@ const ViewCard = ({ view }) => {
 
           {/* Premium Button */}
           <div className="mt-6">
-            <button
+            {/* <button
               onClick={handelPremium}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
             >
               Make Biodata Premium
-            </button>
+            </button> */}
+            <PremiumMenu />
           </div>
 
           {/* Conditionally Render PremiumMenu */}

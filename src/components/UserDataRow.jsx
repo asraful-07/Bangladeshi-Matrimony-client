@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import UpdateUserModal from "./UpdateUserModal";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UserDataRow = ({ userData, refetch }) => {
   const axiosSecure = useAxiosSecure();
