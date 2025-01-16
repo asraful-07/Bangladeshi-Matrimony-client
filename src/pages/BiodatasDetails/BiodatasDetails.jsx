@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
+import Checkout from "../../components/Checkout";
 
 const BiodatasDetails = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const BiodatasDetails = () => {
     data: biodata = {},
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["biodata", id],
     queryFn: async () => {
@@ -130,6 +132,7 @@ const BiodatasDetails = () => {
           </button>
         </div>
       </div>
+      <hr className="my-6" />
     </div>
   );
 };

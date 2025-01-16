@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 const BiodatasCard = ({ biodata }) => {
   const {
     _id,
+    biodataId,
     category,
     image,
     permanentDivision,
-    age, // Age
+    age,
     occupation,
   } = biodata;
 
@@ -46,6 +47,13 @@ const BiodatasCard = ({ biodata }) => {
         <Link to={`/biodata/${_id}`}>
           <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">
             View Profile
+          </button>
+        </Link>
+      </div>
+      <div className="mt-4">
+        <Link to={`/checkout/${biodataId}`}>
+          <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">
+            Request Contact
           </button>
         </Link>
       </div>

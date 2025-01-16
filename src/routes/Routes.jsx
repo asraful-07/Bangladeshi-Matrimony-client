@@ -9,9 +9,9 @@ import Biodatas from "../pages/Biodatas/Biodatas";
 import BiodatasDetails from "../pages/BiodatasDetails/BiodatasDetails";
 import FavouritesBiodata from "../pages/Favourites/FavouritesBiodata";
 import ManageUsers from "../pages/Admin/ManageUsers";
-import PrivetRouter from "./PrivetRouter";
 import AdminRoute from "./AdminRoutes";
 import ViewBiodata from "../layouts/ViewBiodata/ViewBiodata";
+import Checkout from "../components/Checkout";
 
 const routes = createBrowserRouter([
   {
@@ -28,11 +28,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/biodata/:id",
-        element: (
-          <PrivetRouter>
-            <BiodatasDetails />
-          </PrivetRouter>
-        ),
+        element: <BiodatasDetails />,
+      },
+      {
+        path: "/checkout/:id",
+        element: <Checkout />,
       },
     ],
   },
@@ -46,11 +46,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: (
-      <PrivetRouter>
-        <DashboardLayout />
-      </PrivetRouter>
-    ),
+    element: <DashboardLayout />,
     children: [
       {
         path: "biodata",
