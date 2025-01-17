@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
   const axiosSecure = useAxiosSecure();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [bioDataInfo, setBioDataInfo] = useState({});
 
   const handleRegister = (email, password) => {
     setLoading(true);
@@ -97,6 +98,11 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
+  // revived class data and pass
+  const handleGetBioDataInfo = (data) => {
+    return setBioDataInfo(data);
+  };
+
   const info = {
     handleRegister,
     handleLogin,
@@ -107,6 +113,8 @@ const AuthProvider = ({ children }) => {
     setUser,
     forgotPassword,
     handleLogout,
+    handleGetBioDataInfo,
+    bioDataInfo,
   };
 
   return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;

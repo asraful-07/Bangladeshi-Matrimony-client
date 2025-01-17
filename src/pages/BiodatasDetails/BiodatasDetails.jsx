@@ -1,16 +1,14 @@
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
-import Checkout from "../../components/Checkout";
 
 const BiodatasDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const { user } = UseAuth();
+  const { user, handleGetBioDataInfo } = UseAuth();
 
   // Fetch biodata details by ID
   const {
@@ -79,6 +77,8 @@ const BiodatasDetails = () => {
     }
   };
 
+  const bioDataInfoForPayment = { name, mobileNumber, email, image, biodataId };
+
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">Biodata Details</h1>
@@ -131,8 +131,17 @@ const BiodatasDetails = () => {
             Add to Favourites
           </button>
         </div>
+        <div className="mt-4">
+          <Link to={`/checkout/${biodataId}`}>
+            <button
+              onClick={() => handleGetBioDataInfo(bioDataInfoForPayment)}
+              className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700"
+            >
+              Request Contact
+            </button>
+          </Link>
+        </div>
       </div>
-      <hr className="my-6" />
     </div>
   );
 };

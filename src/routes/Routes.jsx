@@ -12,6 +12,7 @@ import ManageUsers from "../pages/Admin/ManageUsers";
 import AdminRoute from "./AdminRoutes";
 import ViewBiodata from "../layouts/ViewBiodata/ViewBiodata";
 import Checkout from "../components/Checkout";
+import MyContactRequest from "../pages/MyContactRequest.jsx/MyContactRequest";
 
 const routes = createBrowserRouter([
   {
@@ -53,12 +54,16 @@ const routes = createBrowserRouter([
         element: <BiodataEdit />,
       },
       {
-        path: "favourites",
-        element: <FavouritesBiodata />,
-      },
-      {
         path: "view",
         element: <ViewBiodata />,
+      },
+      {
+        path: "request",
+        element: <MyContactRequest />,
+      },
+      {
+        path: "favourites",
+        element: <FavouritesBiodata />,
       },
       // Admin works
       {

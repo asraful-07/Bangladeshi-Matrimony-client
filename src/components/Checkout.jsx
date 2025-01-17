@@ -1,13 +1,39 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import UseAuth from "../hooks/UseAuth";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const Checkout = () => {
-  const { id } = useParams();
-  const { user } = UseAuth();
-  const handleSubmit = async () => {};
+  const axiosSecure = useAxiosSecure();
+  const { user, bioDataInfo } = UseAuth();
+  const { biodataId } = bioDataInfo || {};
 
-  console.log(id);
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent the form from reloading the page
+
+    try {
+      // Construct the data object
+      const dataInfo = {
+        biodataId,
+        name: bioDataInfo?.name,
+        email: bioDataInfo?.email,
+        image: bioDataInfo?.image,
+        mobileNumber: bioDataInfo?.mobileNumber,
+        userEmail: user?.email,
+        status: "Pending",
+      };
+
+      // Save data in the database
+      await axiosSecure.post("/data", dataInfo);
+
+      // Notify success
+      toast.success("data pas Successful!");
+    } catch (error) {
+      // Notify failure
+      toast.error("Something went wrong. Please try again.");
+      console.error(error);
+    }
+  };
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-5 border rounded-lg shadow-md">
@@ -20,7 +46,7 @@ const Checkout = () => {
           </label>
           <input
             type="text"
-            value={id}
+            value={biodataId || ""}
             readOnly
             className="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed"
           />
@@ -33,7 +59,7 @@ const Checkout = () => {
           </label>
           <input
             type="email"
-            value={user?.email}
+            value={user?.email || ""}
             readOnly
             className="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed"
           />

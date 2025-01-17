@@ -31,6 +31,43 @@ const DashboardLayout = () => {
         </NavLink>
         <nav className="mt-6">
           <ul>
+            {/* admin code */}
+            <li className="py-2 px-4 hover:bg-blue-700">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? "text-yellow-400" : "text-white"
+                }
+              >
+                <span className="flex justify-center gap-2">
+                  {" "}
+                  <HiHome />
+                </span>{" "}
+                Home
+              </NavLink>
+            </li>
+            <li className="py-2 px-4 hover:bg-blue-700">
+              <NavLink
+                to="/dashboard/user"
+                className={({ isActive }) =>
+                  isActive ? "text-yellow-400" : "text-white"
+                }
+              >
+                Manage User
+              </NavLink>
+            </li>
+            <li className="py-2 px-4 hover:bg-blue-700">
+              <NavLink
+                to="/dashboard/contact"
+                className={({ isActive }) =>
+                  isActive ? "text-yellow-400" : "text-white"
+                }
+              >
+                Approved contact request
+              </NavLink>
+            </li>
+
+            {/* user code */}
             <li className="py-2 px-4 hover:bg-blue-700">
               <NavLink
                 to="/dashboard/biodata"
@@ -53,38 +90,22 @@ const DashboardLayout = () => {
             </li>
             <li className="py-2 px-4 hover:bg-blue-700">
               <NavLink
+                to="/dashboard/request"
+                className={({ isActive }) =>
+                  isActive ? "text-yellow-400" : "text-white"
+                }
+              >
+                My Contact Request
+              </NavLink>
+            </li>
+            <li className="py-2 px-4 hover:bg-blue-700">
+              <NavLink
                 to="/dashboard/favourites"
                 className={({ isActive }) =>
                   isActive ? "text-yellow-400" : "text-white"
                 }
               >
                 Favourites Biodata
-              </NavLink>
-            </li>
-
-            {/* admin code */}
-            <li className="py-2 px-4 hover:bg-blue-700">
-              <NavLink
-                to="/dashboard/user"
-                className={({ isActive }) =>
-                  isActive ? "text-yellow-400" : "text-white"
-                }
-              >
-                Manage User
-              </NavLink>
-            </li>
-            <li className="py-2 px-4 hover:bg-blue-700">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? "text-yellow-400" : "text-white"
-                }
-              >
-                <span className="flex justify-center gap-2">
-                  {" "}
-                  <HiHome />
-                </span>{" "}
-                Home
               </NavLink>
             </li>
           </ul>
