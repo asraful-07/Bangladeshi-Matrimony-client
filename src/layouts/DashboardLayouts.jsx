@@ -2,8 +2,10 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { HiHome } from "react-icons/hi";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../hooks/useAdmin";
 
 const DashboardLayout = () => {
+  const isAdmin = true;
   return (
     <div className="relative min-h-screen md:flex bg-gray-100">
       <Helmet>
