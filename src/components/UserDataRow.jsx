@@ -6,7 +6,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 const UserDataRow = ({ userData, refetch }) => {
   const axiosSecure = useAxiosSecure();
   const [isOpen, setIsOpen] = useState(false);
-  const { email, role, status } = userData || {};
+  const { name, email, role, status } = userData || {};
 
   // handle user role update
   const updateRole = async (selectedRole) => {
@@ -26,6 +26,9 @@ const UserDataRow = ({ userData, refetch }) => {
   };
   return (
     <tr>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <p className="text-gray-900 whitespace-no-wrap">{name}</p>
+      </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{email}</p>
       </td>
