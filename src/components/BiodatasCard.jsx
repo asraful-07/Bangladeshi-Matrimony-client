@@ -14,17 +14,20 @@ const BiodatasCard = ({ biodata }) => {
 
   return (
     <div className="bg-white border p-4 rounded-lg shadow-lg">
-      {/* Profile Image */}
+      {/* Profile Image with Hover Effect */}
       <div className="w-full h-40 bg-gray-200 rounded-md overflow-hidden mb-4">
         <img
           src={image || "default-profile-image.jpg"}
           alt={`${category}'s Profile`}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
         />
       </div>
 
       {/* Biodata Info */}
       <div>
+        {/* Biodata Id */}
+        <p className="text-sm text-gray-600">Biodata ID: {biodataId}</p>
+
         {/* Biodata Type */}
         <p className="text-sm text-gray-600">
           Biodata Type: {category === "male" ? "Male" : "Female"}

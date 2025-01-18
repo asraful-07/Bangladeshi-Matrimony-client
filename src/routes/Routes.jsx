@@ -15,6 +15,9 @@ import Checkout from "../components/Checkout";
 import MyContactRequest from "../pages/MyContactRequest.jsx/MyContactRequest";
 import ApprovedRequest from "../pages/Admin/ApprovedRequest";
 import SuccessStory from "../pages/Success/SuccessStory";
+import ApprovedPremium from "../pages/Admin/ApprovedPremium";
+import MatrimonyCarousel from "../components/MatrimonyCarousel";
+import AdminHome from "../pages/Admin/AdminHome";
 
 const routes = createBrowserRouter([
   {
@@ -36,6 +39,10 @@ const routes = createBrowserRouter([
       {
         path: "/checkout/:id",
         element: <Checkout />,
+      },
+      {
+        path: "/about-us",
+        element: <MatrimonyCarousel />,
       },
     ],
   },
@@ -59,6 +66,14 @@ const routes = createBrowserRouter([
             <ManageUsers />
           </AdminRoute>
         ),
+      },
+      {
+        path: "dashboard",
+        element: <AdminHome />,
+      },
+      {
+        path: "premium",
+        element: <ApprovedPremium />,
       },
       {
         path: "contact",
