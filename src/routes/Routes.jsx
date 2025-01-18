@@ -13,6 +13,8 @@ import AdminRoute from "./AdminRoutes";
 import ViewBiodata from "../layouts/ViewBiodata/ViewBiodata";
 import Checkout from "../components/Checkout";
 import MyContactRequest from "../pages/MyContactRequest.jsx/MyContactRequest";
+import ApprovedRequest from "../pages/Admin/ApprovedRequest";
+import SuccessStory from "../pages/Success/SuccessStory";
 
 const routes = createBrowserRouter([
   {
@@ -49,6 +51,20 @@ const routes = createBrowserRouter([
     path: "dashboard",
     element: <DashboardLayout />,
     children: [
+      // Admin works
+      {
+        path: "user",
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "contact",
+        element: <ApprovedRequest />,
+      },
+      // user work
       {
         path: "biodata",
         element: <BiodataEdit />,
@@ -65,14 +81,9 @@ const routes = createBrowserRouter([
         path: "favourites",
         element: <FavouritesBiodata />,
       },
-      // Admin works
       {
-        path: "user",
-        element: (
-          <AdminRoute>
-            <ManageUsers />
-          </AdminRoute>
-        ),
+        path: "success",
+        element: <SuccessStory />,
       },
     ],
   },

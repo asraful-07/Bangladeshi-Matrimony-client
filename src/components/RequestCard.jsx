@@ -10,12 +10,10 @@ const RequestCard = ({ orderData, refetch }) => {
   const { _id, biodataId, name, email, image, mobileNumber, status } =
     orderData;
 
-  // handle order delete/cancellation
   const handleDelete = async () => {
     try {
-      // fetch delete request
       await axiosSecure.delete(`/data-info/${orderData._id}`);
-      refetch(); // refetch data after deletion
+      refetch();
       toast.success("Request deleted successfully!");
     } catch (err) {
       console.error(err);
@@ -45,10 +43,14 @@ const RequestCard = ({ orderData, refetch }) => {
         <p className="text-gray-900 whitespace-no-wrap">{biodataId}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{email}</p>
+        <p className="text-gray-900 whitespace-no-wrap">
+          {status === "Delivered" ? email : "Pending"}
+        </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{mobileNumber}</p>
+        <p className="text-gray-900 whitespace-no-wrap">
+          {status === "Delivered" ? mobileNumber : "Pending"}
+        </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{status}</p>

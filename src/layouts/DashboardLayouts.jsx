@@ -108,6 +108,16 @@ const DashboardLayout = () => {
                 Favourites Biodata
               </NavLink>
             </li>
+            <li className="py-2 px-4 hover:bg-blue-700">
+              <NavLink
+                to="/dashboard/success"
+                className={({ isActive }) =>
+                  isActive ? "text-yellow-400" : "text-white"
+                }
+              >
+                Success Story
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>
