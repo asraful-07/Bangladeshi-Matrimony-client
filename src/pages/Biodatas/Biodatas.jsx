@@ -4,33 +4,53 @@ import React, { useState } from "react";
 import BiodatasCard from "../../components/BiodatasCard";
 
 const Biodatas = () => {
-  const [filters, setFilters] = useState({
-    ageRange: [20, 30],
-    biodataType: "male",
-    division: "Dhaka",
-  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ageRange, setAgeRange] = useState("");
+  const [gender, setGender] = useState("");
+  const [division, setDivision] = useState("");
+
+  const itemsPerPage = 10;
 
   const {
-    data: biodatas = [],
+    data: { data: biodatas = [], totalCount = 0 } = {},
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["biodatas"],
+    queryKey: ["biodatas", currentPage, ageRange, gender, division],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/biodata");
+      const { data } = await axios.get("http://localhost:5000/biodata", {
+        params: {
+          page: currentPage,
+          limit: itemsPerPage,
+          ageRange,
+          gender,
+          division,
+        },
+      });
       return data;
     },
+    keepPreviousData: true,
   });
 
-  // Handle filtering
-  const filteredBiodatas = biodatas.filter((biodata) => {
-    const isAgeInRange =
-      biodata.age >= filters.ageRange[0] && biodata.age <= filters.ageRange[1];
-    const isBiodataTypeMatch = biodata.type === filters.biodataType;
-    const isDivisionMatch = biodata.permanentDivision === filters.division;
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
 
-    return isAgeInRange && isBiodataTypeMatch && isDivisionMatch;
-  });
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const handleAgeChange = (e) => {
+    setAgeRange(e.target.value);
+  };
+
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
+
+  const handleDivisionChange = (e) => {
+    setDivision(e.target.value);
+  };
 
   if (isLoading) {
     return (
@@ -43,79 +63,62 @@ const Biodatas = () => {
   }
 
   return (
-    <div className="flex">
+    <div className="flex container mx-auto">
       {/* Left side filter section */}
       <div className="w-1/4 p-4">
         <h2 className="font-bold text-lg">Filters</h2>
 
         {/* Age Range Filter */}
-        <div>
-          <label htmlFor="ageRange">Age Range: </label>
-          <input
-            type="range"
+        <div className="mb-4">
+          <label htmlFor="ageRange" className="block text-sm text-gray-600">
+            Age Range
+          </label>
+          <select
             id="ageRange"
-            min="18"
-            max="60"
-            step="1"
-            value={filters.ageRange[0]}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                ageRange: [Number(e.target.value), filters.ageRange[1]],
-              })
-            }
-          />
-          -{" "}
-          <input
-            type="range"
-            id="ageRange"
-            min="18"
-            max="60"
-            step="1"
-            value={filters.ageRange[1]}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                ageRange: [filters.ageRange[0], Number(e.target.value)],
-              })
-            }
-          />
+            value={ageRange}
+            onChange={handleAgeChange}
+            className="w-full p-2 border rounded-md"
+          >
+            <option value="">Select Age Range</option>
+            <option value="20-30">20-30</option>
+            <option value="30-40">30-40</option>
+            <option value="40-50">40-50</option>
+            <option value="50-60">50-60</option>
+          </select>
         </div>
 
-        {/* Biodata Type Filter */}
-        <div>
-          <label htmlFor="biodataType">Biodata Type: </label>
+        {/* Gender Filter */}
+        <div className="mb-4">
+          <label htmlFor="gender" className="block text-sm text-gray-600">
+            Biodata Type
+          </label>
           <select
-            id="biodataType"
-            value={filters.biodataType}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                biodataType: e.target.value,
-              })
-            }
+            id="gender"
+            value={gender}
+            onChange={handleGenderChange}
+            className="w-full p-2 border rounded-md"
           >
+            <option value="">Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </div>
 
         {/* Division Filter */}
-        <div>
-          <label htmlFor="division">Division: </label>
+        <div className="mb-4">
+          <label htmlFor="division" className="block text-sm text-gray-600">
+            Division
+          </label>
           <select
             id="division"
-            value={filters.division}
-            onChange={(e) =>
-              setFilters({
-                ...filters,
-                division: e.target.value,
-              })
-            }
+            value={division}
+            onChange={handleDivisionChange}
+            className="w-full p-2 border rounded-md"
           >
+            <option value="">Select Division</option>
             <option value="Dhaka">Dhaka</option>
-            <option value="Dhaka">Rajshahi</option>
-            <option value="Chattagra">Chattagra</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Chattagram">Chattagram</option>
             <option value="Rangpur">Rangpur</option>
             <option value="Barisal">Barisal</option>
             <option value="Khulna">Khulna</option>
@@ -131,6 +134,29 @@ const Biodatas = () => {
           {biodatas.map((biodata) => (
             <BiodatasCard key={biodata._id} biodata={biodata} />
           ))}
+        </div>
+
+        {/* Pagination Controls */}
+        <div className="mt-4 flex justify-between items-center">
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+
+          <span>
+            {currentPage} of {totalPages}
+          </span>
+
+          <button
+            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
