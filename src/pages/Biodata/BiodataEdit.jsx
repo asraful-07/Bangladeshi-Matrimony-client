@@ -407,7 +407,7 @@ const BiodataEdit = () => {
           <button
             disabled={isSubmitting}
             type="submit"
-            className="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
+            className="w-full px-6 py-3 bg-pink-600 text-white font-semibold rounded-md hover:bg-pink-700"
           >
             {isSubmitting ? "Saving..." : "Save and Publish Now"}
           </button>

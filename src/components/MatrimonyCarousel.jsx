@@ -52,7 +52,7 @@ const MatrimonyCarousel = () => {
 
   return (
     <section className="bg-gray-50 py-10 mt-24">
-      <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">
+      <h2 className="text-3xl font-bold text-center text-pink-600 mb-6">
         Bangladeshi Matrimony - The No.1 Choice for Finding Your Life Partner
       </h2>
       <div className="container mx-auto px-6">
@@ -78,7 +78,7 @@ const MatrimonyCarousel = () => {
                   <p className="text-gray-600 mb-4">{item.description}</p>
                   <a
                     href="#"
-                    className="text-blue-600 hover:underline font-medium"
+                    className="text-pink-600 hover:underline font-medium"
                   >
                     Read more
                   </a>

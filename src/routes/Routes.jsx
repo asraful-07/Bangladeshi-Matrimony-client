@@ -18,6 +18,9 @@ import SuccessStory from "../pages/Success/SuccessStory";
 import ApprovedPremium from "../pages/Admin/ApprovedPremium";
 import MatrimonyCarousel from "../components/MatrimonyCarousel";
 import AdminHome from "../pages/Admin/AdminHome";
+import ContactUs from "../pages/ContactUS/ContactUs";
+import Payment from "../components/Payment/Payment";
+import PrivetRouter from "./PrivetRouter";
 
 const routes = createBrowserRouter([
   {
@@ -34,7 +37,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/biodata/:id",
-        element: <BiodatasDetails />,
+        element: (
+          <PrivetRouter>
+            <BiodatasDetails />
+          </PrivetRouter>
+        ),
       },
       {
         path: "/checkout/:id",
@@ -43,6 +50,14 @@ const routes = createBrowserRouter([
       {
         path: "/about-us",
         element: <MatrimonyCarousel />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
+      },
+      {
+        path: "/payment",
+        element: <Payment />,
       },
     ],
   },
@@ -56,7 +71,11 @@ const routes = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivetRouter>
+        <DashboardLayout />
+      </PrivetRouter>
+    ),
     children: [
       // Admin works
       {

@@ -4,9 +4,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { saveUser } from "../../api/utils";
-
-// import Lottie from "lottie-react";
-// import loginAnimation from "../assets/loginAnimation.json";
+import Lottie from "lottie-react";
+import loginAnimation from "../../assets/LottieTwo.json";
 
 const Register = () => {
   const { handleRegister, manageProfile } = useContext(AuthContext);
@@ -80,9 +79,9 @@ const Register = () => {
   return (
     <div className="hero min-h-screen bg-gray-100 py-8">
       <div className="hero-content flex-col lg:flex-row justify-between">
-        {/* <div>
+        <div>
           <Lottie animationData={loginAnimation} loop={true} />
-        </div> */}
+        </div>
         <div className="card bg-white w-full max-w-2xl shadow-lg rounded-lg p-8">
           <form onSubmit={handelSinUp} className="space-y-6">
             <h1 className="text-4xl font-bold text-center text-gray-800">

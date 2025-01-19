@@ -7,25 +7,25 @@ const SuccessCounter = () => {
   const counters = [
     {
       id: 1,
-      icon: <FaUserFriends size={40} className="text-purple-500" />,
+      icon: <FaUserFriends size={40} className="text-pink-500" />,
       title: "Total Profiles",
       count: 7261,
     },
     {
       id: 2,
-      icon: <FaMale size={40} className="text-purple-500" />,
+      icon: <FaMale size={40} className="text-pink-500" />,
       title: "Total Male Profiles",
       count: 2968,
     },
     {
       id: 3,
-      icon: <FaFemale size={40} className="text-purple-500" />,
+      icon: <FaFemale size={40} className="text-pink-500" />,
       title: "Total Female Profiles",
       count: 4283,
     },
     {
       id: 4,
-      icon: <GiDiamondRing size={40} className="text-purple-500" />,
+      icon: <GiDiamondRing size={40} className="text-pink-500" />,
       title: "Successful Marriages",
       count: 2114,
     },
@@ -42,7 +42,7 @@ const SuccessCounter = () => {
           <div className="mb-4">{counter.icon}</div>
 
           {/* Title */}
-          <h3 className="text-lg font-semibold mb-2 text-purple-600">
+          <h3 className="text-lg font-semibold mb-2 text-pink-600">
             {counter.title}
           </h3>
 
@@ -54,7 +54,7 @@ const SuccessCounter = () => {
             separator=","
             className="text-3xl font-bold text-black"
           />
-          <span className="text-xl font-bold text-purple-600">
+          <span className="text-xl font-bold text-pink-600">
             {counter.id === 4 ? "+" : ""}
           </span>
         </div>

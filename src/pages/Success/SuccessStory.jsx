@@ -190,7 +190,7 @@ const SuccessStory = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white font-medium p-2 rounded-md hover:bg-blue-600 transition duration-200"
+          className="w-full bg-pink-500 text-white font-medium p-2 rounded-md hover:bg-pink-600 transition duration-200"
         >
           Submit
         </button>

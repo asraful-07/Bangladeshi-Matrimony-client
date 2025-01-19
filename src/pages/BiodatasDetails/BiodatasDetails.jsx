@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { FaHeart, FaPhone } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
@@ -80,66 +81,104 @@ const BiodatasDetails = () => {
   const bioDataInfoForPayment = { name, mobileNumber, email, image, biodataId };
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Biodata Details</h1>
+    <div className="container mx-auto mt-12 p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">Biodata Details</h1>
 
-      {/* Display Biodata Details */}
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <div className="flex items-center mb-6">
-          {/* Profile Image */}
-          <div className="w-40 h-40 bg-gray-200 rounded-full overflow-hidden mr-6">
-            <img
-              src={image || "default-profile-image.jpg"}
-              alt={`${name}'s Profile`}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Name and Category */}
+      <div className="bg-white shadow-lg rounded-lg p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Left Column - Profile and Actions */}
           <div>
-            <h2 className="text-2xl font-semibold">{name}</h2>
-            <p className="text-sm text-gray-600">
-              Biodata Type: {category === "male" ? "Male" : "Female"}
-            </p>
+            <div className="flex items-center mb-6">
+              {/* Profile Image */}
+              <div className="w-40 h-40 bg-gray-200 rounded-full overflow-hidden mr-6">
+                <img
+                  src={image || "default-profile-image.jpg"}
+                  alt={`${name || "Profile"}'s Image`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Name and Category */}
+              <div>
+                <h2 className="text-2xl font-semibold">{name || "N/A"}</h2>
+                <p className="text-sm text-gray-600">
+                  Biodata Type: {category === "male" ? "Male" : "Female"}
+                </p>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex items-center gap-4 mt-6">
+              <button
+                onClick={handelBiodata}
+                className="flex items-center justify-center gap-2 bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-700"
+              >
+                <FaHeart /> Add to Favourites
+              </button>
+              <Link to={`/checkout/${biodataId}`}>
+                <button
+                  onClick={() => handleGetBioDataInfo(bioDataInfoForPayment)}
+                  className="flex items-center justify-center gap-2 bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-700"
+                >
+                  <FaPhone /> Request Contact
+                </button>
+              </Link>
+            </div>
           </div>
-        </div>
 
-        {/* Biodata Details */}
-        <p className="text-lg text-gray-700">Age: {age}</p>
-        <p className="text-lg text-gray-700">Biodata ID: {biodataId}</p>
-        <p className="text-lg text-gray-700">Occupation: {occupation}</p>
-        <p className="text-lg text-gray-700">Date of Birth: {dob}</p>
-        <p className="text-lg text-gray-700">Height: {height} cm</p>
-        <p className="text-lg text-gray-700">Weight: {weight} kg</p>
-        <p className="text-lg text-gray-700">Race: {race}</p>
-        <p className="text-lg text-gray-700">Father's Name: {fatherName}</p>
-        <p className="text-lg text-gray-700">Mother's Name: {motherName}</p>
-        <p className="text-lg text-gray-700">
-          Permanent Division: {permanentDivision}
-        </p>
-        <p className="text-lg text-gray-700">
-          Present Division: {presentDivision}
-        </p>
-        <p className="text-lg text-gray-700">Mobile Number: {mobileNumber}</p>
+          {/* Right Column - Biodata Details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Left Sub-Column */}
+            <div>
+              <p className="text-lg text-gray-700">Age: {age || "N/A"}</p>
+              <p className="text-lg text-gray-700">
+                Biodata ID: {biodataId || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700">
+                Occupation: {occupation || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Date of Birth: {dob || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Height: {height || "N/A"} cm
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Weight: {weight || "N/A"} kg
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Race: {race || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Father's Name: {fatherName || "N/A"}
+              </p>
+            </div>
 
-        {/* Favourites Button */}
-        <div className="mt-6">
-          <button
-            onClick={handelBiodata}
-            className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700"
-          >
-            Add to Favourites
-          </button>
-        </div>
-        <div className="mt-4">
-          <Link to={`/checkout/${biodataId}`}>
-            <button
-              onClick={() => handleGetBioDataInfo(bioDataInfoForPayment)}
-              className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700"
-            >
-              Request Contact
-            </button>
-          </Link>
+            {/* Right Sub-Column */}
+            <div>
+              <p className="text-lg text-gray-700 mt-2">
+                Mother's Name: {motherName || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Permanent Division: {permanentDivision || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Present Division: {presentDivision || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Mobile Number: {mobileNumber || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Expected Age: {expectedAge || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Expected Height: {expectedHeight || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Expected Weight: {expectedWeight || "N/A"}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

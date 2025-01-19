@@ -14,10 +14,10 @@ const ManageUsers = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["users", user?.email, search], // Add search as a queryKey dependency
+    queryKey: ["users", user?.email, search],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/all-users/${user?.email}`, {
-        params: { search }, // Pass search as a query parameter
+        params: { search },
       });
       return data;
     },

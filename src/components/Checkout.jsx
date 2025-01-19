@@ -2,6 +2,7 @@ import React from "react";
 import UseAuth from "../hooks/UseAuth";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
   const axiosSecure = useAxiosSecure();
@@ -69,12 +70,20 @@ const Checkout = () => {
         <div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+            className="w-full py-2 px-4 bg-pink-600 text-white font-semibold rounded-md hover:bg-pink-700 transition"
           >
             Submit
           </button>
         </div>
       </form>
+      <Link to="/payment">
+        <button
+          type="submit"
+          className="w-full py-2 my-2 px-4 bg-pink-600 text-white font-semibold rounded-md hover:bg-pink-700 transition"
+        >
+          Pay
+        </button>
+      </Link>
     </div>
   );
 };

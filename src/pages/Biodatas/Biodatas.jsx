@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import BiodatasCard from "../../components/BiodatasCard";
+import { Helmet } from "react-helmet-async";
 
 const Biodatas = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,6 +65,9 @@ const Biodatas = () => {
 
   return (
     <div className="flex container mx-auto">
+      <Helmet>
+        <title>Biodata</title>
+      </Helmet>
       {/* Left side filter section */}
       <div className="w-1/4 p-4">
         <h2 className="font-bold text-lg">Filters</h2>
@@ -139,7 +143,7 @@ const Biodatas = () => {
         {/* Pagination Controls */}
         <div className="mt-4 flex justify-between items-center">
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+            className="bg-pink-500 text-white py-2 px-4 rounded-md hover:bg-pink-700"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
@@ -151,7 +155,7 @@ const Biodatas = () => {
           </span>
 
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+            className="bg-pink-500 text-white py-2 px-4 rounded-md hover:bg-pink-700"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
