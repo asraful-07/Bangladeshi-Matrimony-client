@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import BiodatasCard from "../../components/BiodatasCard";
 import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const Biodatas = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,9 +55,7 @@ const Biodatas = () => {
   };
 
   if (isLoading) {
-    return (
-      <span className="loading loading-spinner text-primary md:loading-lg"></span>
-    );
+    return <LoadingSpinner />;
   }
 
   if (isError) {

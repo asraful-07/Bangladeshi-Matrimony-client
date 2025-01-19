@@ -30,7 +30,7 @@ const ApprovedCard = ({ orderData, refetch }) => {
           <img
             alt="profile"
             src={image}
-            className="mx-auto object-cover rounded h-10 w-15"
+            className="mx-auto object-cover rounded-full h-12 w-12"
           />
         </div>
       </td>

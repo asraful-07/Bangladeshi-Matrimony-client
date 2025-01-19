@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import { Helmet } from "react-helmet-async";
 
 const MatrimonyCarousel = () => {
   const testimonials = [
@@ -52,6 +53,9 @@ const MatrimonyCarousel = () => {
 
   return (
     <section className="bg-gray-50 py-10 mt-24">
+      <Helmet>
+        <title>About US|| Bangladeshi Matrimony</title>
+      </Helmet>
       <h2 className="text-3xl font-bold text-center text-pink-600 mb-6">
         Bangladeshi Matrimony - The No.1 Choice for Finding Your Life Partner
       </h2>

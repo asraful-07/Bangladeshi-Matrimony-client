@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
@@ -7,6 +8,9 @@ const ContactUs = () => {
   };
   return (
     <div className="container mx-auto my-12 p-6">
+      <Helmet>
+        <title>Contact US</title>
+      </Helmet>
       <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
 
       {/* Contact Information */}

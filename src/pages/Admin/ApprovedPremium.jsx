@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import UserCard from "../../components/UserCard";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const ApprovedPremium = () => {
   const { user } = UseAuth();
@@ -20,7 +21,7 @@ const ApprovedPremium = () => {
     },
   });
 
-  if (isLoading) return <h1>loading.........</h1>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>

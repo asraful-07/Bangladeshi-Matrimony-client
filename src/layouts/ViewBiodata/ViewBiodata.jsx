@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import UseAuth from "../../hooks/UseAuth";
 import ViewCard from "../../components/ViewCard";
 import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const ViewBiodata = () => {
   const axiosSecure = useAxiosSecure();
@@ -27,7 +28,7 @@ const ViewBiodata = () => {
     },
   });
 
-  if (isLoading) return <h1>loading.........</h1>;
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div>
       <Helmet>

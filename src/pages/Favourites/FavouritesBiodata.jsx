@@ -4,6 +4,7 @@ import CustomerOrderDataRow from "../../components/CustomerOrderDataRow";
 import { useQuery } from "@tanstack/react-query";
 import UseAuth from "../../hooks/UseAuth";
 import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const FavouritesBiodata = () => {
   const { user } = UseAuth();
@@ -28,7 +29,7 @@ const FavouritesBiodata = () => {
   });
 
   if (isLoading) {
-    return <h1>Loading......</h1>;
+    return <LoadingSpinner />;
   }
 
   return (

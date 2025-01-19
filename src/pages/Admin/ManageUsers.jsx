@@ -4,6 +4,7 @@ import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import UserDataRow from "../../components/UserDataRow";
 import { useState } from "react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const ManageUsers = () => {
   const { user } = UseAuth();
@@ -29,7 +30,7 @@ const ManageUsers = () => {
     setSearch(searchValue);
   };
 
-  if (isLoading) return <h1>loading.........</h1>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>

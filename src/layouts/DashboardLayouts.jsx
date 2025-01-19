@@ -15,7 +15,7 @@ import UseAuth from "../hooks/UseAuth";
 
 // Reusable Sidebar Item Component
 const SidebarItem = ({ to, label, icon: Icon }) => (
-  <li className="py-2 px-4 hover:bg-blue-700">
+  <li className="py-2 px-4 hover:bg-pink-600">
     <NavLink
       to={to}
       className={({ isActive }) =>
@@ -44,14 +44,14 @@ const DashboardLayout = () => {
       {/* Sidebar Toggle Button for Mobile */}
       <button
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className="block md:hidden p-4 bg-blue-900 text-white"
+        className="block md:hidden p-4 bg-pink-700 text-white"
       >
         Menu
       </button>
 
       {/* Sidebar */}
       <div
-        className={`w-64 bg-blue-900 text-white flex-shrink-0 ${
+        className={`w-64 bg-pink-700 text-white flex-shrink-0 ${
           isSidebarOpen ? "block" : "hidden"
         } md:block`}
       >
@@ -64,10 +64,10 @@ const DashboardLayout = () => {
               className="h-12 w-auto"
             />
             <div className="flex flex-col justify-center">
-              <h4 className="text-green-600 text-xl font-semibold">
+              <h4 className="text-pink-200 text-xl font-semibold">
                 Bangladeshi
               </h4>
-              <h4 className="text-red-600 text-xl font-semibold">Matrimony</h4>
+              <h4 className="text-pink-100 text-xl font-semibold">Matrimony</h4>
             </div>
           </div>
         </NavLink>

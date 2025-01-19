@@ -5,6 +5,7 @@ import { FaHeart, FaPhone } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const BiodatasDetails = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ const BiodatasDetails = () => {
 
   // Handle loading and error states
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
 
   if (isError || !biodata || Object.keys(biodata).length === 0) {

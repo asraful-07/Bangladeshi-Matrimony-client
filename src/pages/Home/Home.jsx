@@ -5,10 +5,14 @@ import MatrimonyCarousel from "../../components/MatrimonyCarousel";
 import SuccessStory from "../../components/SuccessStory";
 import ContactUs from "../ContactUS/ContactUs";
 import App from "../../components/App";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Home || Bangladeshi Matrimony</title>
+      </Helmet>
       <Banner />
       <SuccessCounter />
       {/* <App /> */}

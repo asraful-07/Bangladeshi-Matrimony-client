@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import RequestCard from "../../components/RequestCard";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const MyContactRequest = () => {
   const { user } = UseAuth();
@@ -21,7 +22,7 @@ const MyContactRequest = () => {
     },
   });
 
-  if (isLoading) return <h1>loading......</h1>;
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div>
       <Helmet>

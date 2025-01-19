@@ -38,7 +38,7 @@ const CustomerOrderDataRow = ({ orderData, refetch }) => {
               <img
                 alt="profile"
                 src={image}
-                className="mx-auto object-cover rounded h-16 w-12"
+                className="mx-auto object-cover rounded-full w-12 h-12"
               />
             </div>
           </div>
