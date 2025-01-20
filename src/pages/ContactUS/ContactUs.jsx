@@ -7,7 +7,7 @@ const ContactUs = () => {
     toast.success("Wel Come to our Bangladeshi Matrimony");
   };
   return (
-    <div className="container mx-auto my-12 p-6">
+    <div className="container mx-auto bg-gray-50 mt-24 p-6">
       <Helmet>
         <title>Contact US</title>
       </Helmet>

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const BiodataEdit = () => {
   const { user } = UseAuth();
@@ -30,6 +31,9 @@ const BiodataEdit = () => {
   return (
     <div>
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-md p-6">
+        <Helmet>
+          <title>Edit Biodata</title>
+        </Helmet>
         <h1 className="text-3xl font-semibold mb-6">Edit Biodata</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const SuccessStory = () => {
   const { user } = UseAuth();
@@ -28,6 +29,9 @@ const SuccessStory = () => {
 
   return (
     <div className="max-w-xl mx-auto my-10 p-5 shadow-lg rounded-md bg-white">
+      <Helmet>
+        <title>Success Story</title>
+      </Helmet>
       <h1 className="text-2xl font-bold text-center mb-5">
         Share Your Success Story
       </h1>
