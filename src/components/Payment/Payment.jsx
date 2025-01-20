@@ -3,12 +3,14 @@ import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
 import CheckoutForm from "./CheckoutForm";
 
+// Properly wrap the publishable key in quotes
+const stripePromise = loadStripe(
+  "pk_test_51QfET9Lha1hle74UcmsEJtUbXCeAlLQcwBXrGWipyFSozrzOhpPtDd1RjKNDyU05ey2ikbTR8O4IVzrFM3SsPJZV00kcq6xwLw"
+);
+
 const Payment = () => {
-  // TODO: add publishable key
-  const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
   return (
     <div>
-      <h1>payment</h1>
       <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements>

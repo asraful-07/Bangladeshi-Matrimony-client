@@ -10,8 +10,7 @@ const Checkout = () => {
   const { biodataId } = bioDataInfo || {};
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent the form from reloading the page
-
+    event.preventDefault();
     try {
       // Construct the data object
       const dataInfo = {
