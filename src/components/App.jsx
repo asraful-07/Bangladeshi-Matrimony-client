@@ -1,71 +1,53 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
-
-const testimonials = [
-  {
-    id: 1,
-    name: "Jack Daniel",
-    location: "New York",
-    image: "https://via.placeholder.com/80",
-    message:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-  {
-    id: 2,
-    name: "Emily Watson",
-    location: "Los Angeles",
-    image: "https://via.placeholder.com/80",
-    message:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-  {
-    id: 3,
-    name: "Sophia Smith",
-    location: "Chicago",
-    image: "https://via.placeholder.com/80",
-    message:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-];
 
 const App = () => {
+  const steps = [
+    {
+      title: "Create Biodata",
+      description:
+        "You can easily create a biodata on OrdhekDeen completely free of cost within some steps.",
+      imgUrl: "https://ordhekdeen.com/images/hiw-create-biodata.svg",
+    },
+    {
+      title: "Search Biodata",
+      description:
+        "You can easily search biodata using many filters including age, upazila, profession, educational qualification.",
+      imgUrl: "https://ordhekdeen.com/images/hiw-search.svg",
+    },
+    {
+      title: "Contact with guardians",
+      description:
+        "If someone likes your biodata or you like someone's biodata, you can directly contact their parent.",
+      imgUrl: "https://ordhekdeen.com/images/hiw-contact.svg",
+    },
+    {
+      title: "Get married",
+      description:
+        "If you like the biodata and conversation, do your own inquiry & get married according to Sunnah.",
+      imgUrl: "https://ordhekdeen.com/images/hiw-success.svg",
+    },
+  ];
+
   return (
-    <div className="bg-[#faf4ef] py-10">
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        navigation={true}
-        modules={[Navigation]}
-        breakpoints={{
-          768: { slidesPerView: 2 },
-          480: { slidesPerView: 1 },
-        }}
-        className="mySwiper"
-      >
-        {testimonials.map((testimonial) => (
-          <SwiperSlide key={testimonial.id}>
-            <div className="bg-white p-6 rounded-xl shadow-lg relative text-center">
-              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-20 h-20 rounded-full border-4 border-orange-300"
-                />
-              </div>
-              <h3 className="mt-10 font-bold text-lg">{testimonial.name}</h3>
-              <p className="text-sm text-gray-500 mt-2">
-                {testimonial.message}
-              </p>
-              <span className="text-xs text-gray-400 mt-2 block">
-                {testimonial.location}
-              </span>
-            </div>
-          </SwiperSlide>
+    <div className="bg-gray-50 py-10">
+      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {steps.map((step, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+          >
+            <img
+              src={step.imgUrl}
+              alt={step.title}
+              className="w-20 h-20 mb-4"
+            />
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              {step.title}
+            </h3>
+            <p className="text-sm text-gray-600">{step.description}</p>
+          </div>
         ))}
-      </Swiper>
+      </div>
     </div>
   );
 };

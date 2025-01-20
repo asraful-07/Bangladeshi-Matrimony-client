@@ -10,7 +10,7 @@ const stripePromise = loadStripe(
 
 const Payment = () => {
   return (
-    <div>
+    <div className="my-4">
       <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements>

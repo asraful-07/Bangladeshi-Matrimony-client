@@ -4,20 +4,20 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import UseAuth from "../../hooks/UseAuth";
 
-const CheckoutForm = ({ price }) => {
+const CheckoutForm = () => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-  const [transactionId, setTransactionId] = useState("");
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = UseAuth();
 
-  // Fetch client secret from the backend when the component loads
+  const totalPrice = 5;
+
   useEffect(() => {
-    if (price > 0) {
+    if (totalPrice > 0) {
       axiosSecure
-        .post("/create-payment-intent", { price })
+        .post("/create-payment-intent", { price: totalPrice })
         .then((res) => {
           setClientSecret(res.data.clientSecret);
         })
@@ -25,7 +25,7 @@ const CheckoutForm = ({ price }) => {
           console.error("Error fetching client secret:", error);
         });
     }
-  }, [price, axiosSecure]);
+  }, [totalPrice, axiosSecure]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,9 +51,6 @@ const CheckoutForm = ({ price }) => {
         return;
       }
 
-      setError(""); // Clear any previous error
-
-      // Confirm the payment
       const { paymentIntent, error: confirmError } =
         await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
@@ -70,19 +67,21 @@ const CheckoutForm = ({ price }) => {
         return;
       }
 
-      setTransactionId(paymentIntent.id);
+      // Payment succeeded
       Swal.fire({
         icon: "success",
         title: "Payment Successful",
         text: `Transaction ID: ${paymentIntent.id}`,
       });
 
-      // Optionally, send payment details to your backend for further processing (e.g., saving in the database)
-      await axiosSecure.post("/save-payment-info", {
+      // Save payment details in the database
+      const paymentInfo = {
         transactionId: paymentIntent.id,
-        amount: paymentIntent.amount,
-        email: user?.email,
-      });
+        amount: totalPrice,
+        email: user?.email || "unknown@example.com",
+      };
+
+      await axiosSecure.post("/save-payment-info", paymentInfo);
     } catch (error) {
       console.error("Payment error:", error);
       setError("Something went wrong. Please try again.");
@@ -107,17 +106,10 @@ const CheckoutForm = ({ price }) => {
           },
         }}
       />
-      <button
-        className="btn btn-sm btn-primary my-4"
-        type="submit"
-        // disabled={!stripe || !clientSecret}
-      >
-        Pay
+      <button className="btn btn-sm btn-primary my-4" type="submit">
+        Pay $5
       </button>
       <p className="text-red-600">{error}</p>
-      {transactionId && (
-        <p className="text-green-600"> Your transaction id: {transactionId}</p>
-      )}
     </form>
   );
 };
