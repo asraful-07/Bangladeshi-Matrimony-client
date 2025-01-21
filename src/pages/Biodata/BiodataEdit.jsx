@@ -18,6 +18,8 @@ const BiodataEdit = () => {
 
   const onSubmit = async (data) => {
     data.email = user?.email;
+    data.type = "general";
+
     try {
       await axiosSecure.post("/biodata", data);
       toast.success("Biodata added successfully!");

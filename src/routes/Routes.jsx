@@ -87,7 +87,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard",
+        path: "dd",
         element: <AdminHome />,
       },
       {

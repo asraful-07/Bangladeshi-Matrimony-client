@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   HiHome,
@@ -11,7 +11,8 @@ import {
 } from "react-icons/hi";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
-import UseAuth from "../hooks/UseAuth";
+import { AuthContext } from "../Provider/AuthProvider";
+import { FaSignOutAlt } from "react-icons/fa";
 
 // Reusable Sidebar Item Component
 const SidebarItem = ({ to, label, icon: Icon }) => (
@@ -32,7 +33,7 @@ const SidebarItem = ({ to, label, icon: Icon }) => (
 
 const DashboardLayout = () => {
   const [isAdmin] = useAdmin();
-  const { user } = UseAuth();
+  const { handleLogout } = useContext(AuthContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
@@ -78,7 +79,7 @@ const DashboardLayout = () => {
             {isAdmin ? (
               <>
                 <SidebarItem
-                  to="/dashboard"
+                  to="/dashboard/dd"
                   label="Admin Dashboard"
                   icon={HiOutlineViewGrid}
                 />
@@ -122,13 +123,20 @@ const DashboardLayout = () => {
                 />
                 <SidebarItem
                   to="/dashboard/success"
-                  label="Success Story"
+                  label="Got Married"
                   icon={HiCheckCircle}
                 />
               </>
             )}
           </ul>
         </nav>
+        <h1
+          className="flex items-center text-white cursor-pointer ml-4 hover:text-gray-300"
+          onClick={handleLogout}
+        >
+          <FaSignOutAlt className="mr-2" />
+          Logout
+        </h1>
       </div>
 
       {/* Dynamic Content Area */}

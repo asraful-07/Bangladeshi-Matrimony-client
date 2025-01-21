@@ -6,6 +6,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const BiodatasDetails = () => {
   const { id } = useParams();
@@ -83,6 +84,9 @@ const BiodatasDetails = () => {
 
   return (
     <div className="container mx-auto mt-12 p-6">
+      <Helmet>
+        <title>Biodata Details</title>
+      </Helmet>
       <h1 className="text-3xl font-bold mb-6 text-center">Biodata Details</h1>
 
       <div className="bg-white shadow-lg rounded-lg p-6">
@@ -151,12 +155,18 @@ const BiodatasDetails = () => {
                 Race: {race || "N/A"}
               </p>
               <p className="text-lg text-gray-700 mt-2">
-                Father's Name: {fatherName || "N/A"}
+                Mobile Number: {mobileNumber || "N/A"}
+              </p>
+              <p className="text-lg text-gray-700 mt-2">
+                Email: {email || "N/A"}
               </p>
             </div>
 
             {/* Right Sub-Column */}
             <div>
+              <p className="text-lg text-gray-700 mt-2">
+                Father's Name: {fatherName || "N/A"}
+              </p>
               <p className="text-lg text-gray-700 mt-2">
                 Mother's Name: {motherName || "N/A"}
               </p>
@@ -165,9 +175,6 @@ const BiodatasDetails = () => {
               </p>
               <p className="text-lg text-gray-700 mt-2">
                 Present Division: {presentDivision || "N/A"}
-              </p>
-              <p className="text-lg text-gray-700 mt-2">
-                Mobile Number: {mobileNumber || "N/A"}
               </p>
               <p className="text-lg text-gray-700 mt-2">
                 Expected Age: {expectedAge || "N/A"}
