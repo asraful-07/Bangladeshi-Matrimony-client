@@ -1,26 +1,24 @@
 import React, { useState } from "react";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import UseAuth from "../hooks/UseAuth";
 import StoryCard from "./StoryCard";
 import LoadingSpinner from "./LoadingSpinner";
+import axios from "axios";
 
 const SuccessStory = () => {
-  const { user } = UseAuth();
-  const axiosSecure = useAxiosSecure();
   const [sortOrder, setSortOrder] = useState("ascending");
 
   // Fetch data with sorting
-  const { data: success = [], isLoading } = useQuery({
-    queryKey: ["success", user?.email, sortOrder],
+  const {
+    data: success = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["success"],
     queryFn: async () => {
-      if (!user?.email) {
-        throw new Error("User email is not available");
-      }
-
-      // Pass sortOrder as a query parameter
-      const { data } = await axiosSecure.get(`/success?sortOrder=${sortOrder}`);
-      return data;
+      const response = await axios.get(
+        `https://assigment-server-one.vercel.app/success?sortOrder=${sortOrder}`
+      );
+      return response.data;
     },
   });
 

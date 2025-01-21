@@ -7,11 +7,13 @@ import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { Helmet } from "react-helmet-async";
+import useRole from "../../hooks/useRole";
 
 const BiodatasDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const { user, handleGetBioDataInfo } = UseAuth();
+  const [role] = useRole();
 
   // Fetch biodata details by ID
   const {
@@ -22,9 +24,28 @@ const BiodatasDetails = () => {
   } = useQuery({
     queryKey: ["biodata", id],
     queryFn: async () => {
-      const { data } = await axios.get(`http://localhost:5000/biodata/${id}`);
+      const { data } = await axios.get(
+        `https://assigment-server-one.vercel.app/biodata/${id}`
+      );
       return data;
     },
+  });
+
+  // Fetch similar biodata based on gender
+  const {
+    data: similarBiodata = [],
+    isLoading: isSimilarLoading,
+    isError: isSimilarError,
+  } = useQuery({
+    queryKey: ["similar-biodata", biodata.gender],
+    queryFn: async () => {
+      if (!biodata.gender) return [];
+      const { data } = await axios.get(
+        `https://assigment-server-one.vercel.app/similar-biodata/${biodata.gender}`
+      );
+      return data;
+    },
+    enabled: !!biodata.gender, // Only fetch when the gender is available
   });
 
   // Handle loading and error states
@@ -42,7 +63,7 @@ const BiodatasDetails = () => {
     biodataId,
     email,
     name,
-    category,
+    gender,
     image,
     dob,
     height,
@@ -60,7 +81,7 @@ const BiodatasDetails = () => {
     expectedWeight,
   } = biodata;
 
-  // Handle Donate Button Click
+  // Handle Add to Favourites Button Click
   const handelBiodata = async () => {
     const data = {
       email: user?.email,
@@ -103,12 +124,10 @@ const BiodatasDetails = () => {
                 />
               </div>
 
-              {/* Name and Category */}
+              {/* Name and gender */}
               <div>
                 <h2 className="text-2xl font-semibold">{name || "N/A"}</h2>
-                <p className="text-sm text-gray-600">
-                  Biodata Type: {category === "male" ? "Male" : "Female"}
-                </p>
+                <p className="text-sm text-gray-600">Biodata Type: {gender}</p>
               </div>
             </div>
 
@@ -120,14 +139,16 @@ const BiodatasDetails = () => {
               >
                 <FaHeart /> Add to Favourites
               </button>
-              <Link to={`/checkout/${biodataId}`}>
-                <button
-                  onClick={() => handleGetBioDataInfo(bioDataInfoForPayment)}
-                  className="flex items-center justify-center gap-2 bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-700"
-                >
-                  <FaPhone /> Request Contact
-                </button>
-              </Link>
+              {role === "NormalUser" && (
+                <Link to={`/checkout/${biodataId}`}>
+                  <button
+                    onClick={() => handleGetBioDataInfo(bioDataInfoForPayment)}
+                    className="flex items-center justify-center gap-2 bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-700"
+                  >
+                    <FaPhone /> Request Contact
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
 
@@ -154,12 +175,16 @@ const BiodatasDetails = () => {
               <p className="text-lg text-gray-700 mt-2">
                 Race: {race || "N/A"}
               </p>
-              <p className="text-lg text-gray-700 mt-2">
-                Mobile Number: {mobileNumber || "N/A"}
-              </p>
-              <p className="text-lg text-gray-700 mt-2">
-                Email: {email || "N/A"}
-              </p>
+              {role === "Premium" && (
+                <p className="text-lg text-gray-700 mt-2">
+                  Mobile Number: {mobileNumber || "N/A"}
+                </p>
+              )}
+              {role === "Premium" && (
+                <p className="text-lg text-gray-700 mt-2">
+                  Email: {email || "N/A"}
+                </p>
+              )}
             </div>
 
             {/* Right Sub-Column */}
@@ -189,6 +214,47 @@ const BiodatasDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* Similar Biodata */}
+      {similarBiodata.length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-2xl font-semibold mb-4">Similar Biodata</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {similarBiodata.map((similar) => (
+              <div
+                key={similar.biodataId}
+                className="bg-white shadow-lg p-4 rounded-lg"
+              >
+                <img
+                  src={similar.image || "default-profile-image.jpg"}
+                  alt={similar.name}
+                  className="w-full h-40 object-cover rounded-lg mb-4"
+                />
+                <h3 className="text-xl font-semibold">{similar.name}</h3>
+                <p className="text-sm text-gray-600">
+                  Gender: {similar.gender}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Permanent Division: {similar.permanentDivision}
+                </p>
+
+                {/* Age */}
+                <p className="text-sm text-gray-600">Age: {similar.age}</p>
+
+                {/* Occupation */}
+                <p className="text-sm text-gray-600">
+                  Occupation: {similar.occupation}
+                </p>
+                <Link to={`/biodata/${similar._id}`}>
+                  <button className="bg-pink-500 text-white py-2 px-4 my-4 rounded-full hover:bg-pink-700">
+                    View Profile
+                  </button>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

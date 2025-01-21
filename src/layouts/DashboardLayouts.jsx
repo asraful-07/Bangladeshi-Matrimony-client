@@ -79,7 +79,7 @@ const DashboardLayout = () => {
             {isAdmin ? (
               <>
                 <SidebarItem
-                  to="/dashboard/dd"
+                  to="/dashboard"
                   label="Admin Dashboard"
                   icon={HiOutlineViewGrid}
                 />
@@ -102,7 +102,7 @@ const DashboardLayout = () => {
             ) : (
               <>
                 <SidebarItem
-                  to="/dashboard/biodata"
+                  to="/dashboard"
                   label="Edit Biodata"
                   icon={HiOutlineViewGrid}
                 />

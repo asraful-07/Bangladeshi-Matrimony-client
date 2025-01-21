@@ -3,7 +3,7 @@ import axios from "axios";
 export const saveUser = async (user) => {
   try {
     const response = await axios.post(
-      `http://localhost:5000/users/${user?.email}`,
+      `https://assigment-server-one.vercel.app/users/${user?.email}`,
       {
         name: user?.displayName,
         image: user?.photoURL,

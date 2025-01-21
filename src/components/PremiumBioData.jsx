@@ -1,29 +1,29 @@
 import React, { useState } from "react";
-import UseAuth from "../hooks/UseAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "./LoadingSpinner";
 import PremiumBioDataCard from "./PremiumBioDataCard";
 
 const PremiumBioData = () => {
-  const { user } = UseAuth();
-  const axiosSecure = useAxiosSecure();
   const [sortOrder, setSortOrder] = useState("ascending");
 
   // Fetch data using React Query
-  const { data: premium = [], isLoading } = useQuery({
-    queryKey: ["premium", user?.email],
+  const {
+    data: biodatas = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["biodatas"],
     queryFn: async () => {
-      if (!user?.email) {
-        throw new Error("User email is not available");
-      }
-      const { data } = await axiosSecure.get(`/premium-biodata`);
-      return data;
+      const response = await axios.get(
+        "https://assigment-server-one.vercel.app/premium-biodata"
+      );
+      return response.data;
     },
   });
 
   // Handle sorting logic
-  const sortedPremium = [...premium].sort((a, b) => {
+  const sortedPremium = [...biodatas].sort((a, b) => {
     if (sortOrder === "ascending") {
       return a.age - b.age;
     } else {
@@ -31,8 +31,31 @@ const PremiumBioData = () => {
     }
   });
 
+  // Display loading spinner
   if (isLoading) {
     return <LoadingSpinner />;
+  }
+
+  // Handle error state
+  if (isError) {
+    return (
+      <div className="text-center mt-24">
+        <h2 className="text-2xl font-semibold text-red-600">
+          Error fetching premium biodata. Please try again later.
+        </h2>
+      </div>
+    );
+  }
+
+  // Handle empty data
+  if (biodatas.length === 0) {
+    return (
+      <div className="text-center mt-24">
+        <h2 className="text-2xl font-semibold text-gray-700">
+          No premium biodata found.
+        </h2>
+      </div>
+    );
   }
 
   return (

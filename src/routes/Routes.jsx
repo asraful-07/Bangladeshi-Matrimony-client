@@ -21,6 +21,8 @@ import AdminHome from "../pages/Admin/AdminHome";
 import ContactUs from "../pages/ContactUS/ContactUs";
 import Payment from "../components/Payment/Payment";
 import PrivetRouter from "./PrivetRouter";
+import ErrorPage from "../pages/Error/ErrorPage";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 const routes = createBrowserRouter([
   {
@@ -59,6 +61,10 @@ const routes = createBrowserRouter([
         path: "/payment",
         element: <Payment />,
       },
+      {
+        path: "*",
+        element: <ErrorPage />,
+      },
     ],
   },
   {
@@ -70,13 +76,17 @@ const routes = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: (
       <PrivetRouter>
         <DashboardLayout />
       </PrivetRouter>
     ),
     children: [
+      {
+        path: "",
+        element: <Dashboard />,
+      },
       // Admin works
       {
         path: "user",
@@ -86,23 +96,37 @@ const routes = createBrowserRouter([
           </AdminRoute>
         ),
       },
-      {
-        path: "dd",
-        element: <AdminHome />,
-      },
+      // {
+      //   path: "dd",
+      //   element: (
+      //     <AdminRoute>
+      //       <AdminHome />
+      //     </AdminRoute>
+      //   ),
+      // },
       {
         path: "premium",
-        element: <ApprovedPremium />,
+        element: (
+          <AdminRoute>
+            {" "}
+            <ApprovedPremium />
+          </AdminRoute>
+        ),
       },
       {
         path: "contact",
-        element: <ApprovedRequest />,
+        element: (
+          <AdminRoute>
+            {" "}
+            <ApprovedRequest />
+          </AdminRoute>
+        ),
       },
       // user work
-      {
-        path: "biodata",
-        element: <BiodataEdit />,
-      },
+      // {
+      //   path: "biodata",
+      //   element: <BiodataEdit />,
+      // },
       {
         path: "view",
         element: <ViewBiodata />,
@@ -118,6 +142,10 @@ const routes = createBrowserRouter([
       {
         path: "success",
         element: <SuccessStory />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },

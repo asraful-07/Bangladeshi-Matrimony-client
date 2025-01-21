@@ -20,15 +20,18 @@ const Biodatas = () => {
   } = useQuery({
     queryKey: ["biodatas", currentPage, ageRange, gender, division],
     queryFn: async () => {
-      const { data } = await axios.get("http://localhost:5000/biodata", {
-        params: {
-          page: currentPage,
-          limit: itemsPerPage,
-          ageRange,
-          gender,
-          division,
-        },
-      });
+      const { data } = await axios.get(
+        "https://assigment-server-one.vercel.app/biodata",
+        {
+          params: {
+            page: currentPage,
+            limit: itemsPerPage,
+            ageRange,
+            gender,
+            division,
+          },
+        }
+      );
       return data;
     },
     keepPreviousData: true,

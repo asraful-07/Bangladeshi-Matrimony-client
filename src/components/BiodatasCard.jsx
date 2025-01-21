@@ -2,15 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BiodatasCard = ({ biodata }) => {
-  const {
-    _id,
-    biodataId,
-    category,
-    image,
-    permanentDivision,
-    age,
-    occupation,
-  } = biodata;
+  const { _id, biodataId, gender, image, permanentDivision, age, occupation } =
+    biodata;
 
   return (
     <div className="bg-white border p-4 rounded-lg shadow-lg">
@@ -18,7 +11,6 @@ const BiodatasCard = ({ biodata }) => {
       <div className="w-full h-40 bg-gray-200 rounded-md overflow-hidden mb-4">
         <img
           src={image || "default-profile-image.jpg"}
-          alt={`${category}'s Profile`}
           className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
         />
       </div>
@@ -29,9 +21,7 @@ const BiodatasCard = ({ biodata }) => {
         <p className="text-sm text-gray-600">Biodata ID: {biodataId}</p>
 
         {/* Biodata Type */}
-        <p className="text-sm text-gray-600">
-          Biodata Type: {category === "male" ? "Male" : "Female"}
-        </p>
+        <p className="text-sm text-gray-600">Biodata Type: {gender}</p>
 
         {/* Permanent Division */}
         <p className="text-sm text-gray-600">

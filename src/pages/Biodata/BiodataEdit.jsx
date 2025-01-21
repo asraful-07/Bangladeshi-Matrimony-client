@@ -4,24 +4,50 @@ import toast from "react-hot-toast";
 import UseAuth from "../../hooks/UseAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import { useQuery } from "@tanstack/react-query";
 
 const BiodataEdit = () => {
   const { user } = UseAuth();
   const axiosSecure = useAxiosSecure();
 
   const {
+    data: bioData = {},
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["bioData", user?.email],
+    queryFn: async () => {
+      if (!user?.email) {
+        throw new Error("User email is not available");
+      }
+
+      // Call the backend API with the correct route
+      const { data } = await axiosSecure.get(`/biodata-data/${user.email}`);
+      return data;
+    },
+  });
+
+  const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm();
+  } = useForm({ values: bioData });
+
+  // console.log(bioData);
 
   const onSubmit = async (data) => {
-    data.email = user?.email;
-    data.type = "general";
-
     try {
-      await axiosSecure.post("/biodata", data);
+      if (bioData?._id) {
+        delete data._id;
+        await axiosSecure.put(`/biodata-edit/${bioData?._id}`, data);
+        refetch();
+      } else {
+        data.email = user?.email;
+        data.type = "general";
+        await axiosSecure.post("/biodata", data);
+      }
+
       toast.success("Biodata added successfully!");
       reset();
     } catch (err) {
