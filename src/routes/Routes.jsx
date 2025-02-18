@@ -123,10 +123,10 @@ const routes = createBrowserRouter([
         ),
       },
       // user work
-      // {
-      //   path: "biodata",
-      //   element: <BiodataEdit />,
-      // },
+      {
+        path: "biodata",
+        element: <BiodataEdit />,
+      },
       {
         path: "view",
         element: <ViewBiodata />,

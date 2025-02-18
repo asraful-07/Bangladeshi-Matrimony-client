@@ -107,6 +107,11 @@ const DashboardLayout = () => {
                   icon={HiOutlineViewGrid}
                 />
                 <SidebarItem
+                  to="/dashboard/biodata"
+                  label="Edit Biodata"
+                  icon={HiOutlineViewGrid}
+                />
+                <SidebarItem
                   to="/dashboard/view"
                   label="View Biodata"
                   icon={HiHome}
