@@ -66,7 +66,7 @@ const Biodatas = () => {
   }
 
   return (
-    <div className="flex container mx-auto">
+    <div className="flex container mx-auto mt-20">
       <Helmet>
         <title>Biodata</title>
       </Helmet>
