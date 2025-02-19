@@ -33,7 +33,7 @@ const SuccessStory = () => {
       </h1>
 
       {/* Sort Order Dropdown */}
-      <div className="mb-6 flex justify-start">
+      <div className="mb-6 flex justify-end">
         <label htmlFor="sortOrder" className="mr-2 font-medium text-gray-700">
           Sort by Marriage Date:
         </label>
