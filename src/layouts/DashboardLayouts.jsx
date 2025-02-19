@@ -136,10 +136,13 @@ const DashboardLayout = () => {
             )}
           </ul>
         </nav>
-        <h1 className="flex items-center text-white cursor-pointer ml-4 hover:text-gray-300">
+        <NavLink
+          to="/dashboard/profile"
+          className="flex items-center text-white cursor-pointer ml-4 hover:text-gray-300"
+        >
           <CgProfile className="mr-2 my-4" />
           Profile
-        </h1>
+        </NavLink>
         <h1
           className="flex items-center text-white cursor-pointer ml-4 hover:text-gray-300"
           onClick={handleLogout}
