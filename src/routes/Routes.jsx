@@ -23,6 +23,7 @@ import Payment from "../components/Payment/Payment";
 import PrivetRouter from "./PrivetRouter";
 import ErrorPage from "../pages/Error/ErrorPage";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import Profile from "../pages/Profile/Profile";
 
 const routes = createBrowserRouter([
   {
@@ -142,6 +143,10 @@ const routes = createBrowserRouter([
       {
         path: "success",
         element: <SuccessStory />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
       {
         path: "*",

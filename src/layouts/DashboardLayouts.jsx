@@ -13,6 +13,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaSignOutAlt } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 
 // Reusable Sidebar Item Component
 const SidebarItem = ({ to, label, icon: Icon }) => (
@@ -135,6 +136,10 @@ const DashboardLayout = () => {
             )}
           </ul>
         </nav>
+        <h1 className="flex items-center text-white cursor-pointer ml-4 hover:text-gray-300">
+          <CgProfile className="mr-2 my-4" />
+          Profile
+        </h1>
         <h1
           className="flex items-center text-white cursor-pointer ml-4 hover:text-gray-300"
           onClick={handleLogout}

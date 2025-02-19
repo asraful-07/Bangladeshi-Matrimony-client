@@ -63,7 +63,7 @@ const PremiumBioData = () => {
       <h1 className="text-4xl font-bold mb-6 text-pink-600">Premium BioData</h1>
 
       {/* Sorting Dropdown */}
-      <div className="mb-6 flex justify-start items-center">
+      <div className="mb-6 flex justify-end items-center">
         <label
           htmlFor="sortOrder"
           className="mr-3 font-xl text-gray-800"
